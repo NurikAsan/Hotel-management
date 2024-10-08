@@ -10,11 +10,18 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton'; 
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UserStorageService } from '../../../../auth/services/storage/user-storage.service';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'; 
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
   imports: [
+    FormsModule,
+    NzDatePickerModule,
+    NzModalModule,
     NzPaginationModule,
     NzSkeletonModule,
     NzAvatarModule,
@@ -50,5 +57,46 @@ export class RoomsComponent {
   pageIndexChange(value: any){
     this.currentPage = value;
     this.getRoom();
+  }
+
+  isVisibleMiddle = false;
+  date: Date[] = [];
+  checkInDate: Date;
+  checkOutDate: Date;
+  id: number;
+
+  onChange(result: Date[]){
+    if(result.length == 2){
+      this.checkInDate = result[0];
+      this.checkOutDate = result[1];
+    }
+  }
+
+  handleOkMiddle():void {
+    const obj = {
+      userId: UserStorageService.getUserId(),
+      roomId: this.id,
+      checkInDate: this.checkInDate,
+      checkOutDate: this.checkOutDate
+    }
+    this.customerService.bookRoom(obj).subscribe(res => {
+      this.message.success(
+        'Request sibmitted for approval!', { nzDuration: 5000 }
+      );
+      this.isVisibleMiddle = false;
+    }, error => {
+      this.message.error(
+        `${error.error}`, { nzDuration: 5000 }
+      )
+    })
+  }
+
+  showModalMiddle(id: number){
+    this.id = id;
+    this.isVisibleMiddle = true;
+  }
+
+  handleCancelMiddle(){
+    this.isVisibleMiddle = false;
   }
 }

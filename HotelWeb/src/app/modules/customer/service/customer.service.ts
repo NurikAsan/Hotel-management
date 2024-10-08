@@ -13,8 +13,13 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   getAvailableRoom(pageNumber: number): Observable<any>{
-    console.log('Hello');
     return this.http.get(BASIC_URL + `api/customer/rooms/${pageNumber}`, {      
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
+  bookRoom(dto: any): Observable<any>{
+    return this.http.post(BASIC_URL + `api/customer/book`, dto, {      
       headers: this.createAuthorizationHeader(),
     })
   }
