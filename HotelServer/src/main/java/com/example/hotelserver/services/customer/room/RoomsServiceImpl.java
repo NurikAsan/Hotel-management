@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class RoomServiceImpl implements RoomService{
+public class RoomsServiceImpl implements RoomService{
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
 
