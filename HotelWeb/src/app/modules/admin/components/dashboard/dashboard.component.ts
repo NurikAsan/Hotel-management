@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AdminService } from '../../admin-services/admin.service';
-
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';  // Для кнопок действий
@@ -11,12 +10,13 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton'; 
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NzModalService } from 'ng-zorro-antd/modal'
+import {NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
+    NzModalModule,
     NzPaginationModule,
     NzSkeletonModule,
     NzAvatarModule,
@@ -25,7 +25,7 @@ import { NzModalService } from 'ng-zorro-antd/modal'
     NzIconModule,
     NzCardModule,
     RouterModule,
-    CommonModule
+    CommonModule,
     ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
