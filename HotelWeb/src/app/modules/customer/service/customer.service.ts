@@ -24,6 +24,13 @@ export class CustomerService {
     })
   }
 
+  getBookingsById(pageNumber: number): Observable<any>{
+    const id = UserStorageService.getUserId();
+    return this.http.post(BASIC_URL + `api/customer/booking/${id}/${pageNumber}`, {      
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
   createAuthorizationHeader(){
     let authHeader: HttpHeaders = new HttpHeaders();
     return authHeader.set(
