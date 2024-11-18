@@ -3,7 +3,6 @@ package com.example.hotelserver.controllers.auth;
 import com.example.hotelserver.dto.AuthenticationRequest;
 import com.example.hotelserver.dto.AuthenticationResponse;
 import com.example.hotelserver.dto.RequestDto;
-import com.example.hotelserver.dto.UserDto;
 import com.example.hotelserver.entity.User;
 import com.example.hotelserver.mapper.UserMapper;
 import com.example.hotelserver.repository.UserRepository;
