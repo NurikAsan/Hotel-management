@@ -18,4 +18,12 @@ export class AuthService {
   login(loginRequest: any): Observable<any> {
     return this.http.post(BASIC_URL + "api/v1/auth/login", loginRequest)
   }
+
+  logout(logoutRequest: any): Observable<any>{
+    return this.http.post(BASIC_URL + "api/v1/auth/logout", logoutRequest)
+  }
+
+  change_password(user_id: number, password: any): Observable<any> {
+    return this.http.post(BASIC_URL + "api/v1/auth/change_password", {user_id, password})
+  }
 }
