@@ -26,10 +26,15 @@ export class CustomerService {
 
   getBookingsById(pageNumber: number): Observable<any>{
     const id = UserStorageService.getUserId();
-    return this.http.post(BASIC_URL + `api/customer/booking/${id}/${pageNumber}`, {      
+    return this.http.get(BASIC_URL + `api/customer/booking/${id}/${pageNumber}`, {      
       headers: this.createAuthorizationHeader(),
     })
   }
+
+  getRefPay(name: string, amount: number): Observable<any>{
+    return this.http.get(BASIC_URL + `api/v1/payment/checkout?name=${name}&amount=${amount}`)
+  }
+
 
   createAuthorizationHeader(){
     let authHeader: HttpHeaders = new HttpHeaders();
@@ -38,4 +43,5 @@ export class CustomerService {
       'Bearer ' + UserStorageService.getToken()
     )
   }
+
 }

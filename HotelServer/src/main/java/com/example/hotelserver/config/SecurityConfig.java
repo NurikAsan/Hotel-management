@@ -23,7 +23,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final UserService userService;
     private final JwtAuthenticationFilter filter;
-
+    private final String[] allowedPaths = {
+            "/api/v1/auth/**",
+            "/api/v1/payment/**"
+    };
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,7 +34,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         request ->{
-                            request.requestMatchers("api/v1/auth/**")
+                            request.requestMatchers(allowedPaths)
                                     .permitAll()
                                     .requestMatchers("api/admin/**").hasAnyAuthority(UserRole.ADMIN.name())
                                     .requestMatchers("api/customer/**").hasAnyAuthority(UserRole.CUSTOMER.name())

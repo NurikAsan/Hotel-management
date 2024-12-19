@@ -3,22 +3,22 @@
 
     <nz-table #basicTable [nzData]="bookings" [nzShowPagination]="'false'">
         <thead>
-        <tr>
-            <th>Room Name<th>
-            <th>Room Type<th>
-            <th>Check in Date<th>
-            <th>Check Out Date<th>
-            <th>Price<th>
-            <th>Status<th>
-        </tr>
+            <tr>
+                <th>Room Name</th>
+                <th>Room Type</th>
+                <th>Check in Date</th>
+                <th>Check Out Date</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
         </thead>
         <tbody>
         <tr *ngFor="let booking of basicTable.data">
-            <td> {{ booking.roomName }} </td>
-            <td> {{ booking.roomType }} </td>
-            <td> {{ booking.checkInDate }} </td>
-            <td> {{ booking.checkOutDate }} </td>
-            <td> {{ booking.price }} </td>
+            <td>{{ booking.roomName }}</td>
+            <td>{{ booking.roomType }}</td>
+            <td>{{ booking.checkInDate }}</td>
+            <td>{{ booking.checkOutDate }}</td>
+            <td>{{ booking.price }}</td>
             <td>
                 <ng-container *ngIf="booking.reservationStatus === 'PENDING'">
                     <nz-tag nzColor="processing">
@@ -30,7 +30,14 @@
                 <ng-container *ngIf="booking.reservationStatus === 'APPROVED'">
                     <nz-tag nzColor="success">
                         <span nz-icon nzType="check-circle" nzSpin></span>
-                        <span>Approved</span>
+                        <a *ngIf="referenceData; else loadingTemplate" [href]="referenceData">
+                                Approved
+                        </a>
+                        <ng-template #loadingTemplate>
+                            <span (click)="getRefToPay(booking.roomName, booking.price)">
+                                Loading...
+                            </span>
+                        </ng-template>
                     </nz-tag>
                 </ng-container>
 

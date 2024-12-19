@@ -27,7 +27,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 })
 export class ViewBookingsComponent {
   currentPage: any = 1;
-
+  referenceData: any;
   total: any;
   bookings: any;
 
@@ -39,8 +39,20 @@ export class ViewBookingsComponent {
   getBookings(){
     this.customService.getBookingsById(this.currentPage - 1).subscribe(res =>{
       console.log(res)
-      // this.bookings = res.reservationDtoList;
-      // this.total = res.totalPages * 5;
+      this.bookings = res.reservationDtoList;
+      this.total = res.totalPages * 5;
+    }, err => {
+      this.message.error(
+        `${err.error}`,
+        { nzDuration: 5000 }
+      )
+    })
+  }
+  
+  getRefToPay(name: string, amount: number){
+    this.customService.getRefPay(name, amount).subscribe(res => {
+      console.log(`DATA ${res.data}`)
+      this.referenceData = res.data
     }, err => {
       this.message.error(
         `${err.error}`,
